@@ -8,7 +8,7 @@ from gpiozero import Button
 import os
 import shutil
 
-isPiCamera = False
+isPiCamera = True
 picture_root_path = "/home/mike/Desktop/Projects/Images"
 current_folder = 1
 extension = ".jpg"
@@ -59,14 +59,14 @@ while run_program:
         print("Button1 is pressed")
         file_name = takePicture()
         print("New image save: " + file_name)
-        sleep(3)
+        sleep(1)
     elif button2.is_pressed:
        print("Button2 is pressed")
        current_folder = increment_folder_name(current_folder)
        print("New folder created: " + str(current_folder))
-       sleep(3)
+       sleep(1)
     elif button3.is_pressed:
         print("Button3 is pressed")
         run_program = False
-        sleep(3)
+        sleep(1)
 print("End")
