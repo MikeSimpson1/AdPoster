@@ -3,7 +3,7 @@ from os import listdir
 from time import sleep
 import os
 
-DIR_PATH = os.getcwd()+"/Images"
+DIR_PATH = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images"
 IMG_PATH = DIR_PATH + "/"
 
 def openNewTab(browser):
@@ -22,10 +22,11 @@ def fillForm(browser, dir):
     imgList = os.listdir(path)
     browser.find_element("xpath", "//label[contains(@aria-label, 'Title')]").send_keys("@gmail.com")
     browser.find_element("xpath", "//label[contains(@aria-label, 'Price')]").send_keys("20")
+    img_path = ""
     for fileName in imgList:
-        img_path = path + "/" + fileName
-        browser.find_element("xpath", "//input[contains(@accept, 'image/*,image/heif,image/heic')]").send_keys(img_path)
-        sleep(5)
+        img_path = img_path + path + "/" + fileName + " \n "
+    img_path = img_path[:-3]
+    browser.find_element("xpath", "//input[contains(@accept, 'image/*,image/heif,image/heic')]").send_keys(img_path)
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--disable-notifications")
