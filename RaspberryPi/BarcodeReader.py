@@ -6,9 +6,7 @@ import json
 
 #Pass in a path and return the info from the first Barcode that was found
 
-def decode(path):
-    # decodes all barcodes from an image
-    images = getImages(path)
+def decode(images):
     for image in images:
         image = cv2.imread("C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1/" +image)
         decoded_objects = pyzbar.decode(image)
@@ -25,7 +23,10 @@ def getImages(path):
     return imgList
 
 def getTitleAndAuthor(path):
-    isbn = decode(path)
+    images = getImages(path)
+    isbn = decode(images)
+    if isbn == "":
+        return []
     base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
     with urllib.request.urlopen(base_api_link + isbn) as f:
         text = f.read()
@@ -36,6 +37,8 @@ def getTitleAndAuthor(path):
 
 def generateMetaFile(path):
     info = getTitleAndAuthor(path)
+    if info == []:
+        return
     with open(path + '/info.txt', 'w') as f:
         for item in info:
             f.write(item + "\n")
@@ -44,4 +47,3 @@ def test():
     path = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1"
     print(getTitleAndAuthor(path))
     generateMetaFile(path)
-test()
