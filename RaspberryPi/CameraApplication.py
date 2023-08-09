@@ -55,6 +55,7 @@ button2 = Button(4)
 button3 = Button(10)
 greenLed = LED(16)
 redLed = LED(14)
+blueLed = LED(15)
 initializePath(picture_root_path, current_folder)
 greenLed.on()
 run_program = True
@@ -65,7 +66,10 @@ while run_program:
         file_name = takePicture()
         print("New image save: " + file_name)
         if BR.containsBarcode(file_name):
+            blueLed.on()
             print("barcode detected")
+            sleep(0.5)
+            blueLed.off()
         sleep(1)
     elif button2.is_pressed:
         redLed.on()
