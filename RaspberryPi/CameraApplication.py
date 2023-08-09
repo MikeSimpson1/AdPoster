@@ -7,6 +7,7 @@ from time import sleep
 from gpiozero import Button, LED
 import os
 import shutil
+import BarcodeReader as BR
 
 isPiCamera = True
 picture_root_path = "/home/mike/Desktop/Projects/Images"
@@ -63,6 +64,8 @@ while run_program:
         print("Button1 is pressed")
         file_name = takePicture()
         print("New image save: " + file_name)
+        if BR.containsBarcode(file_name):
+            print("barcode detected")
         sleep(1)
     elif button2.is_pressed:
         redLed.on()
