@@ -24,7 +24,8 @@ def getImages(path):
             imgList.append(file)
     return imgList
 
-def getTitleAndAuthor(isbn):
+def getTitleAndAuthor(path):
+    isbn = decode(path)
     base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
     with urllib.request.urlopen(base_api_link + isbn) as f:
         text = f.read()
@@ -33,5 +34,14 @@ def getTitleAndAuthor(isbn):
     volume_info = obj["items"][0]["volumeInfo"]
     return [volume_info["title"],",".join(volume_info["authors"])]
 
-isbn = decode("C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1")
-print(getTitleAndAuthor(isbn))
+def generateMetaFile(path):
+    info = getTitleAndAuthor(path)
+    with open(path + '/info.txt', 'w') as f:
+        for item in info:
+            f.write(item + "\n")
+
+def test():
+    path = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1"
+    print(getTitleAndAuthor(path))
+    generateMetaFile(path)
+test()
