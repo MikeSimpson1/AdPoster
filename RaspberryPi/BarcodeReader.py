@@ -8,7 +8,7 @@ import json
 
 def decode(images):
     for image in images:
-        image = cv2.imread("C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1/" +image)
+        image = cv2.imread("/home/mike/Desktop/Projects/Images/1/" +image)
         decoded_objects = pyzbar.decode(image)
         for obj in decoded_objects:
             return obj.data.decode('utf-8')
@@ -42,8 +42,13 @@ def generateMetaFile(path):
     with open(path + '/info.txt', 'w') as f:
         for item in info:
             f.write(item + "\n")
+            
+def containsBarcode(imagePath):
+    image = cv2.imread(imagePath)
+    decoded_objects = pyzbar.decode(image)
+    return decoded_objects != []
 
 def test():
-    path = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images/1"
+    path = "/home/mike/Desktop/Projects/Images/1"
     print(getTitleAndAuthor(path))
     generateMetaFile(path)
