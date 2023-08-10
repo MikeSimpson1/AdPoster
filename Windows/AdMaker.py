@@ -6,6 +6,11 @@ import os
 DIR_PATH = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images"
 IMG_PATH = DIR_PATH + "/"
 
+def getBookDetails(info_path):
+    with open(info_path) as f:
+        lines = f.readlines()
+    return lines[0], lines[1]
+
 def openNewTab(browser):
     browser.execute_script("window.open('https://www.facebook.com/marketplace/create/item');")
     browser.switch_to.window(browser.window_handles[-1])
@@ -20,12 +25,18 @@ def performLogin(browser):
 def fillForm(browser, dir):
     path = IMG_PATH + dir
     imgList = os.listdir(path)
-    browser.find_element("xpath", "//label[contains(@aria-label, 'Title')]").send_keys("@gmail.com")
-    browser.find_element("xpath", "//label[contains(@aria-label, 'Price')]").send_keys("20")
     img_path = ""
+    title = ""
+    author = ""
     for fileName in imgList:
-        img_path = img_path + path + "/" + fileName + " \n "
+        if fileName.endswith(".txt"):
+            title, author = getBookDetails(path + "/" + fileName)
+        if fileName.endswith(".jpg"):
+            img_path = img_path + path + "/" + fileName + " \n "
     img_path = img_path[:-3]
+    
+    browser.find_element("xpath", "//label[contains(@aria-label, 'Title')]").send_keys(title + "-" + author)
+    browser.find_element("xpath", "//label[contains(@aria-label, 'Price')]").send_keys("20")
     browser.find_element("xpath", "//input[contains(@accept, 'image/*,image/heif,image/heic')]").send_keys(img_path)
 
 chrome_options = webdriver.ChromeOptions()
