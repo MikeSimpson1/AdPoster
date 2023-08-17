@@ -50,9 +50,9 @@ if (isPiCamera):
 else:
     cam = VideoCapture(0)
 
-button1 = Button(2)
-button2 = Button(4)
-button3 = Button(10)
+takePictureButton = Button(2)
+newFolderButton = Button(4)
+endProgramButton = Button(10)
 greenLed = LED(16)
 redLed = LED(14)
 blueLed = LED(15)
@@ -60,9 +60,9 @@ initializePath(picture_root_path, current_folder)
 greenLed.on()
 run_program = True
 while run_program:
-    if button1.is_pressed:
+    if takePictureButton.is_pressed:
         redLed.on()
-        print("Button1 is pressed")
+        print("takePictureButton is pressed")
         file_name = takePicture()
         print("New image save: " + file_name)
         if BR.containsBarcode(file_name):
@@ -71,15 +71,15 @@ while run_program:
             sleep(0.5)
             blueLed.off()
         sleep(1)
-    elif button2.is_pressed:
+    elif newFolderButton.is_pressed:
         redLed.on()
-        print("Button2 is pressed")
+        print("newFolderButton is pressed")
         current_folder = increment_folder_name(current_folder)
         print("New folder created: " + str(current_folder))
         sleep(1)
-    elif button3.is_pressed:
+    elif endProgramButton.is_pressed:
         redLed.on()
-        print("Button3 is pressed")
+        print("endProgramButton is pressed")
         run_program = False
         sleep(1)
     redLed.off()
