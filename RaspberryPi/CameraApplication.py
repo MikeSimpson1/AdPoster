@@ -8,12 +8,12 @@ from gpiozero import Button, LED
 import os
 import shutil
 import BarcodeReader as BR
+from DisplayController import LCD_Display
 
 isPiCamera = True
 picture_root_path = "/home/mike/Desktop/Projects/Images"
 current_folder = 1
 extension = ".jpg"
-
 
 def takePicture():
     path = get_path_string()
@@ -52,12 +52,16 @@ else:
 
 button1 = Button(2)
 button2 = Button(4)
-button3 = Button(10)
+button3 = Button(9)
 greenLed = LED(16)
 redLed = LED(14)
 blueLed = LED(15)
 initializePath(picture_root_path, current_folder)
 greenLed.on()
+
+LCD_Display = LCD_Display(camera)
+LCD_Display.setup()
+
 run_program = True
 while run_program:
     if button1.is_pressed:
@@ -83,5 +87,8 @@ while run_program:
         run_program = False
         sleep(1)
     redLed.off()
+    camera.capture(LCD_Display.rawCapture, format="bgr")
+    LCD_Display.display()
 greenLed.off()
+LCD_Display.close()
 print("End")
