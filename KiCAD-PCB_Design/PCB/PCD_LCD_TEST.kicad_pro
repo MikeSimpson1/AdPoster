@@ -396,7 +396,7 @@
     ]
   },
   "meta": {
-    "filename": "PCB.kicad_pro",
+    "filename": "PCD_LCD_TEST.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -430,7 +430,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "PCB_3.net",
+      "netlist": "NET_WITH_LCD.net",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""
