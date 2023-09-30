@@ -51,9 +51,9 @@ else:
     cam = VideoCapture(0)
 
 
-takePictureButton = Button(2)
-newFolderButton = Button(4)
-endProgramButton = Button(9)
+takePictureButton = Button(21)
+newFolderButton = Button(9)
+endProgramButton = Button(4)
 
 greenLed = LED(16)
 redLed = LED(14)
