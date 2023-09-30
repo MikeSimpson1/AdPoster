@@ -1,8 +1,7 @@
 from pyzbar import pyzbar
 import cv2
 import os
-import urllib.request
-import json
+from GoogleBookPythonWrapper import GoogleBook
 
 #Pass in a path and return the info from the first Barcode that was found
 
@@ -26,22 +25,17 @@ def getTitleAndAuthor(path):
     images = getImages(path)
     isbn = decode(images)
     if isbn == "":
-        return []
-    base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
-    with urllib.request.urlopen(base_api_link + isbn) as f:
-        text = f.read()
-    decoded_text = text.decode("utf-8")
-    obj = json.loads(decoded_text) # deserializes decoded_text to a Python object
-    volume_info = obj["items"][0]["volumeInfo"]
-    return [volume_info["title"],",".join(volume_info["authors"])]
+        return "", []
+    b = GoogleBook(isbn)
+    return b.getTitle(), b.getAuthor()
 
 def generateMetaFile(path):
-    info = getTitleAndAuthor(path)
-    if info == []:
+    title, author = getTitleAndAuthor(path)
+    if title == "" or author == []:
         return
     with open(path + '/info.txt', 'w') as f:
-        for item in info:
-            f.write(item + "\n")
+        f.write(title + "\n")
+        f.write(author)
             
 def containsBarcode(imagePath):
     image = cv2.imread(imagePath)
@@ -49,6 +43,7 @@ def containsBarcode(imagePath):
     return decoded_objects != []
 
 def test():
-    path = "/home/mike/Desktop/Projects/Images/1"
+    path = "C:/Users/Mike/Desktop/Projects/Images/1"
     print(getTitleAndAuthor(path))
     generateMetaFile(path)
+test()
