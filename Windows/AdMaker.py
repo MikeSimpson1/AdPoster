@@ -2,14 +2,16 @@ from selenium import webdriver
 from os import listdir
 from time import sleep
 import os
+import json
+from GoogleBookPythonWrapper import GoogleBook
 
 DIR_PATH = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images"
 IMG_PATH = DIR_PATH + "/"
 
 def getBookDetails(info_path):
     with open(info_path) as f:
-        lines = f.readlines()
-    return lines[0], lines[1]
+        b = f.readline()
+    return GoogleBook(b)
 
 def openNewTab(browser):
     browser.execute_script("window.open('https://www.facebook.com/marketplace/create/item');")
@@ -18,8 +20,8 @@ def openNewTab(browser):
 
 def performLogin(browser):
     browser.get('https://www.facebook.com/')
-    browser.find_element("id", "email").send_keys("@gmail.com")
-    browser.find_element("id", "pass").send_keys("aB3@")
+    browser.find_element("id", "email").send_keys("petworker6@gmail.com")
+    browser.find_element("id", "pass").send_keys("anusBlack3@")
     browser.find_element("name", "login").click()
 
 def fillForm(browser, dir):

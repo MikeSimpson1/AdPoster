@@ -1,6 +1,7 @@
 from pyzbar import pyzbar
 import cv2
 import os
+import json
 from GoogleBookPythonWrapper import GoogleBook
 
 #Pass in a path and return the info from the first Barcode that was found
@@ -27,23 +28,23 @@ def getTitleAndAuthor(path):
     if isbn == "":
         return "", []
     b = GoogleBook(isbn)
-    return b.getTitle(), b.getAuthor()
+    return b
 
 def generateMetaFile(path):
-    title, author = getTitleAndAuthor(path)
-    if title == "" or author == []:
+    book = getTitleAndAuthor(path)
+    if book.getTitle() == "" or book.getAuthor() == []:
         return
     with open(path + '/info.txt', 'w') as f:
-        f.write(title + "\n")
-        f.write(author)
+        f.write(json.dumps(book.__dict__))
             
 def containsBarcode(imagePath):
     image = cv2.imread(imagePath)
     decoded_objects = pyzbar.decode(image)
     return decoded_objects != []
 
+def writeToFile(book):
+    with open('C:/Users/Mike/Desktop/info.txt', 'w') as f:
+        f.write(json.dumps(book.__dict__))
+
 def test():
-    path = "C:/Users/Mike/Desktop/Projects/Images/1"
-    print(getTitleAndAuthor(path))
-    generateMetaFile(path)
-test()
+    writeToFile(GoogleBook('9781668016138'))
