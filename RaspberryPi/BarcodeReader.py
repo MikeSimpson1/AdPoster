@@ -1,14 +1,9 @@
 from pyzbar import pyzbar
 import cv2
 import os
-<<<<<<< Updated upstream
 import json
-=======
 #import cv2.barcode as barcode
->>>>>>> Stashed changes
 from GoogleBookPythonWrapper import GoogleBook
-
-#Pass in a path and return the info from the first Barcode that was found
 
 def decode(images):
     for image in images:
@@ -51,11 +46,8 @@ def writeToFile(book):
         f.write(json.dumps(book.__dict__))
 
 def test():
-<<<<<<< Updated upstream
     writeToFile(GoogleBook('9781668016138'))
-=======
-    path = "C:/Users/Mike/Desktop/Projects/Images/1"
-    print(getTitleAndAuthor(path))
-    generateMetaFile(path)
-#test()
->>>>>>> Stashed changes
+    #path = "C:/Users/Mike/Desktop/Projects/Images/1"
+    #print(getTitleAndAuthor(path))
+    #generateMetaFile(path)
+test()
