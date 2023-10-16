@@ -1,0 +1,15 @@
+[Unit]
+Description=Get IMS service running at boot
+After=mosquitto.service mysql.service
+
+[Service]
+ExecStart=/home/mike/Desktop/Projects/RaspberryPi/Startup.py
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=IMS
+User=mike
+Group=mike
+
+[Install]
+WantedBy=multi-user.target
