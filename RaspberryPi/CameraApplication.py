@@ -15,6 +15,13 @@ picture_root_path = "/home/mike/Desktop/Projects/Images"
 current_folder = 1
 extension = ".jpg"
 
+def barcodeCheck(image):
+    if BR.containsBarcode(image):
+        blueLed.on()
+        print("barcode detected")
+        sleep(0.5)
+        blueLed.off()
+
 def takePicture():
     path = get_path_string()
     if (isPiCamera):
@@ -71,11 +78,6 @@ while run_program:
         print("takePictureButton is pressed")
         file_name = takePicture()
         print("New image save: " + file_name)
-        if BR.containsBarcode(file_name):
-            blueLed.on()
-            print("barcode detected")
-            sleep(0.5)
-            blueLed.off()
         sleep(1)
     elif newFolderButton.is_pressed:
         redLed.on()
@@ -89,7 +91,8 @@ while run_program:
         run_program = False
         sleep(1)
     redLed.off()
-    camera.capture(LCD_Display.rawCapture, format="bgr")
+    camera.capture(LCD_Display.rawCapture, format="rgb")
+    print(barcodeCheck(LCD_Display.rawCapture.array))
     LCD_Display.display()
 greenLed.off()
 LCD_Display.close()
