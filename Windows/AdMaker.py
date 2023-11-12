@@ -1,12 +1,20 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from os import listdir
 from time import sleep
 import os
 import json
 from GoogleBookPythonWrapper import GoogleBook
 
+CREDS_PATH = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Windows/creds.txt"
 DIR_PATH = "C:/Users/Mike/Desktop/Projects/MarketplaceAdPoster/Images"
 IMG_PATH = DIR_PATH + "/"
+
+def getLoginCredentials():
+    with open(CREDS_PATH) as f:
+        email = f.readline()
+        pw = f.readline()
+    return email, pw
 
 def getBookDetails(info_path):
     with open(info_path) as f:
@@ -19,9 +27,11 @@ def openNewTab(browser):
     sleep(5)
 
 def performLogin(browser):
+    email, pw = getLoginCredentials()
     browser.get('https://www.facebook.com/')
-    browser.find_element("id", "email").send_keys("@gmail.com")
-    browser.find_element("id", "pass").send_keys("aB3@")
+    browser.find_element(By.ID, 'email').send_keys(email)
+    sleep(2)
+    browser.find_element(By.ID, "pass").send_keys(pw)
     browser.find_element("name", "login").click()
 
 def fillForm(browser, dir):
@@ -44,7 +54,7 @@ def fillForm(browser, dir):
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--disable-notifications")
 chrome_options.add_experimental_option("detach", True)
-browser = webdriver.Chrome(chrome_options=chrome_options)
+browser = webdriver.Chrome(options=chrome_options)
 
 performLogin(browser)
 sleep(3)
