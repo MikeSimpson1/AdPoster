@@ -1,6 +1,7 @@
 #Google books Python API
 import urllib.request
 import json
+import PriceLookup
 
 
 class GoogleBook:
@@ -11,12 +12,14 @@ class GoogleBook:
     __publisher=""
     __thumbnailLink=""
     __title=""
+    __price=0
     def __init__(self, json_def, var):
         self.__dict__ = json.loads(json_def)
     
     def __init__(self, isbn):
         self.__isbn = isbn
         self.__author, self.__description, self.__pageCount, self.__publisher, self.__thumbnailLink, self.__title = getInfo(self.__isbn)
+        self.__price = getBookPrice(isbn)
     
     def getAuthor(self):
         return self.__author
@@ -32,6 +35,8 @@ class GoogleBook:
         return self.__thumbnailLink
     def getTitle(self):
         return self.__title
+    def getPrice(self):
+        return self.__price
     
 def getJSON(isbn):
     base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
@@ -51,6 +56,9 @@ def getInfo(isbn):
     title=info["title"]
     
     return author, description, pageCount, publisher, thumbnailLink, title
+
+def getBookPrice(isbn):
+    return PriceLookup.getPrice(isbn)
 
 def test():
     b = GoogleBook("9781668016138")

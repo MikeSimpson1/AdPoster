@@ -50,4 +50,4 @@ def test():
     #path = "C:/Users/Mike/Desktop/Projects/Images/1"
     #print(getTitleAndAuthor(path))
     #generateMetaFile(path)
-test()
+#test()
