@@ -83,7 +83,7 @@ Lorem ipsum
 [product-screenshot]: ProductImages/Uncased_device.jpg
 [Selenium]: https://img.shields.io/pypi/pyversions/Selenium?logo=Selenium
 [Selenium-url]: https://www.selenium.dev/
-[Python]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Python]: https://img.shields.io/pypi/pyversions/pybadges.svg
 [Python-url]: https://www.python.org/
 [OpenCV]: https://img.shields.io/pypi/pyversions/Opencv-python?logo=OpenCV
 [OpenCV-url]: https://pypi.org/project/opencv-python/
