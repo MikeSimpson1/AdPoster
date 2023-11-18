@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="ProductImages/Case.png" alt="Logo" width="200" height="200">
+    <img src="ProductImages/Case.png" alt="Logo" width="500" height="500">
   </a>
 
   <h3 align="center">Marketplace Ad Poster</h3>
